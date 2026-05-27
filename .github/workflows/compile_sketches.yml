@@ -8,8 +8,8 @@ on:
 jobs:
   compile:
     runs-on: ubuntu-latest
-
     strategy:
+      fail-fast: false          # ← que compile todos aunque uno falle
       matrix:
         sketch:
           - Sketch_Parte1_LabMicro/Sketch_Parte1_LabMicro.ino
@@ -28,5 +28,5 @@ jobs:
           libraries: |
             - name: Keypad
             - name: LiquidCrystal I2C
-            - name: Servo
-            - name: EEPROM
+              version: 1.1.4
+            - name: Adafruit LiquidCrystal
