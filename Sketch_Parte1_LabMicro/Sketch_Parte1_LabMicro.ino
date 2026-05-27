@@ -194,3 +194,5 @@ void mostrarBienvenida() {
   Serial.println("Escribe 'help' para ver los comandos.");
   Serial.println("****************");
 }
+
+// Trigger workflow
