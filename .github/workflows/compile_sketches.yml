@@ -21,6 +21,7 @@ jobs:
           arduino-cli lib install "Keypad"
           arduino-cli lib install "LiquidCrystal I2C"
           arduino-cli lib install "Adafruit LiquidCrystal"
+          arduino-cli lib install "Servo"
           arduino-cli compile --fqbn arduino:avr:uno Sketch_Parte1_LabMicro/
           arduino-cli compile --fqbn arduino:avr:uno Sketch_Arduino1_Parte2/
           arduino-cli compile --fqbn arduino:avr:uno Sketch_Arduino2_Parte2/
