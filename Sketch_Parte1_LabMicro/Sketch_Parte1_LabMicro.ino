@@ -195,5 +195,5 @@ void mostrarBienvenida() {
   Serial.println("****************");
 }
 
-// AE
+// Build V3
 
