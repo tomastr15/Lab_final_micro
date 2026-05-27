@@ -195,5 +195,5 @@ void mostrarBienvenida() {
   Serial.println("****************");
 }
 
-// Build V2
+// A
 
