@@ -8,34 +8,19 @@ on:
 jobs:
   compile:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Instalar arduino-cli
+      - name: Instalar arduino-cli y compilar
         run: |
-          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
-          echo "$HOME/bin" >> $GITHUB_PATH
-
-      - name: Instalar core Arduino UNO
-        run: |
+          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
           arduino-cli core update-index
           arduino-cli core install arduino:avr
-
-      - name: Instalar librerías
-        run: |
           arduino-cli lib install "Keypad"
           arduino-cli lib install "LiquidCrystal I2C"
           arduino-cli lib install "Adafruit LiquidCrystal"
-
-      - name: Compilar Sketch Parte 1
-        run: arduino-cli compile --fqbn arduino:avr:uno Sketch_Parte1_LabMicro/
-
-      - name: Compilar Arduino 1 Parte 2
-        run: arduino-cli compile --fqbn arduino:avr:uno Sketch_Arduino1_Parte2/
-
-      - name: Compilar Arduino 2 Parte 2
-        run: arduino-cli compile --fqbn arduino:avr:uno Sketch_Arduino2_Parte2/
+          arduino-cli compile --fqbn arduino:avr:uno Sketch_Parte1_LabMicro/
+          arduino-cli compile --fqbn arduino:avr:uno Sketch_Arduino1_Parte2/
+          arduino-cli compile --fqbn arduino:avr:uno Sketch_Arduino2_Parte2/
