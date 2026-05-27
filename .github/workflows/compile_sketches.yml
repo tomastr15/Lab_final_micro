@@ -9,24 +9,33 @@ jobs:
   compile:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false          # ← que compile todos aunque uno falle
-      matrix:
-        sketch:
-          - Sketch_Parte1_LabMicro/Sketch_Parte1_LabMicro.ino
-          - Sketch_Arduino1_Parte2/Sketch_Arduino1_Parte2.ino
-          - Sketch_Arduino2_Parte2/Sketch_Arduino2_Parte2.ino
+      fail-fast: false
 
     steps:
-      - name: Checkout del repositorio
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Compilar ${{ matrix.sketch }}
-        uses: arduino/compile-sketches@v1
-        with:
-          fqbn: 'arduino:avr:uno'
-          sketch-paths: ${{ matrix.sketch }}
-          libraries: |
-            - name: Keypad
-            - name: LiquidCrystal I2C
-              version: 1.1.4
-            - name: Adafruit LiquidCrystal
+      - name: Instalar arduino-cli
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Instalar core Arduino UNO
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+
+      - name: Instalar librerías
+        run: |
+          arduino-cli lib install "Keypad"
+          arduino-cli lib install "LiquidCrystal I2C"
+          arduino-cli lib install "Adafruit LiquidCrystal"
+
+      - name: Compilar Sketch Parte 1
+        run: arduino-cli compile --fqbn arduino:avr:uno Sketch_Parte1_LabMicro/
+
+      - name: Compilar Arduino 1 Parte 2
+        run: arduino-cli compile --fqbn arduino:avr:uno Sketch_Arduino1_Parte2/
+
+      - name: Compilar Arduino 2 Parte 2
+        run: arduino-cli compile --fqbn arduino:avr:uno Sketch_Arduino2_Parte2/
